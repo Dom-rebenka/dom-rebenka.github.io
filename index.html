@@ -1,72 +1,603 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-L81GFL9QY5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-L81GFL9QY5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-L81GFL9QY5');
+  </script>
 
-  gtag('config', 'G-L81GFL9QY5');
-</script>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#dff2f7">
-<title>Дом ребёнка — Каждый вклад это частичка доброты</title>
-<style>
-:root{--blue:#dff3fa;--peach:#ffe4c9;--ink:#183b67;--rust:#985044;--card:rgba(255,255,255,.91)}
-*{box-sizing:border-box}
-body{margin:0;color:var(--ink);font-family:Arial,Helvetica,sans-serif;background:linear-gradient(145deg,#bfeafa 0%,#f8f0df 50%,#ffdfc3 100%);min-height:100vh}
-main{width:min(920px,100%);margin:auto;padding:24px 16px 36px}
-.hero{display:flex;align-items:center;gap:18px;padding:22px 24px;background:var(--card);border:2px solid white;border-radius:28px;box-shadow:0 10px 28px #76553b22}
-.heart{font-size:clamp(48px,8vw,78px);line-height:1}
-h1{font-family:Georgia,serif;font-style:italic;color:var(--rust);font-size:clamp(28px,5.2vw,48px);line-height:1.08;margin:0}
-h2{text-align:center;text-transform:uppercase;color:var(--rust);font-size:clamp(22px,4.5vw,36px);line-height:1.15;margin:28px 0 22px}
-.card{background:var(--card);border:2px solid white;border-radius:26px;padding:clamp(18px,4vw,32px);margin:18px 0;box-shadow:0 10px 25px #76553b20}
-.detail{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid #d8e1e8}
-.detail:last-child{border-bottom:0;padding-bottom:0}.detail:first-child{padding-top:0}
-.ico{font-size:30px;text-align:center}
-p{margin:4px 0;font-size:clamp(16px,2.5vw,21px);line-height:1.35;overflow-wrap:anywhere}
-strong{font-weight:750}
-.steps{list-style:none;margin:14px 0 0;padding:0}
-.steps li{display:flex;gap:12px;font-size:clamp(16px,2.5vw,21px);line-height:1.35;margin:7px 0}
-.steps li:before{content:"➜";color:#65a7b8;font-weight:bold}
-footer{text-align:center;padding:20px 12px 4px;color:var(--rust);font-family:Georgia,serif;font-style:italic;font-weight:bold;font-size:clamp(20px,3.5vw,28px)}
-footer span{display:block;font-family:Arial,sans-serif;font-style:normal;font-size:28px;margin-bottom:8px}
-.note{font-size:13px;color:#5d7185;text-align:center;margin-top:18px}
-@media(max-width:480px){main{padding:14px 10px 24px}.hero{padding:18px 15px;gap:12px;border-radius:22px}.card{border-radius:22px}.detail{grid-template-columns:34px 1fr;gap:10px}.ico{font-size:25px}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#dff2f7">
+  <meta name="description" content="Реквизиты для благотворительной помощи Могилёвскому специализированному Дому ребёнка. Каждый вклад — это частичка доброты.">
+  <title>Дом ребёнка — Каждый вклад это частичка доброты</title>
+
+  <style>
+    :root {
+      --blue: #dff3fa;
+      --peach: #ffe4c9;
+      --ink: #183b67;
+      --rust: #985044;
+      --card: rgba(255,255,255,.92);
+      --shadow: 0 12px 32px rgba(65,85,115,.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(ellipse at 5% 5%, #bdeafa 0%, transparent 38%),
+        radial-gradient(ellipse at 95% 25%, #ffddc0 0%, transparent 35%),
+        linear-gradient(145deg, #e5f7fc, #fff7ed 55%, #ffe8d5);
+      background-attachment: fixed;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Плавающие декоративные сердечки */
+    .floating {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .float-item {
+      position: absolute;
+      bottom: -70px;
+      opacity: 0;
+      animation: floatUp linear infinite;
+      user-select: none;
+    }
+
+    .float-item:nth-child(1) {
+      left: 7%;
+      font-size: 25px;
+      animation-duration: 15s;
+      animation-delay: 0s;
+    }
+
+    .float-item:nth-child(2) {
+      left: 24%;
+      font-size: 18px;
+      animation-duration: 19s;
+      animation-delay: 4s;
+    }
+
+    .float-item:nth-child(3) {
+      left: 49%;
+      font-size: 28px;
+      animation-duration: 17s;
+      animation-delay: 2s;
+    }
+
+    .float-item:nth-child(4) {
+      left: 73%;
+      font-size: 22px;
+      animation-duration: 20s;
+      animation-delay: 6s;
+    }
+
+    .float-item:nth-child(5) {
+      left: 90%;
+      font-size: 19px;
+      animation-duration: 16s;
+      animation-delay: 3s;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(-12deg);
+        opacity: 0;
+      }
+      12% {
+        opacity: .5;
+      }
+      85% {
+        opacity: .4;
+      }
+      100% {
+        transform: translateY(-115vh) rotate(22deg);
+        opacity: 0;
+      }
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(920px, 100%);
+      margin: auto;
+      padding: 30px 16px 36px;
+    }
+
+    /* Главный экран */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 28px 26px;
+      background: var(--card);
+      border: 2px solid rgba(255,255,255,.95);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: heroEnter .9s ease both;
+    }
+
+    .hero::after {
+      content: "✦";
+      position: absolute;
+      right: 22px;
+      top: 12px;
+      color: #e7b68d;
+      font-size: 27px;
+      animation: sparkle 3s ease-in-out infinite;
+    }
+
+    .heart {
+      flex-shrink: 0;
+      font-size: clamp(48px, 8vw, 78px);
+      line-height: 1;
+      animation: heartbeat 2.5s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-style: italic;
+      color: var(--rust);
+      font-size: clamp(28px, 5.2vw, 48px);
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    h2 {
+      text-align: center;
+      text-transform: uppercase;
+      color: var(--rust);
+      font-size: clamp(22px, 4.5vw, 36px);
+      line-height: 1.2;
+      margin: 36px 0 24px;
+      animation: fadeIn 1s ease both;
+    }
+
+    /* Карточки */
+    .card {
+      position: relative;
+      background: var(--card);
+      border: 2px solid rgba(255,255,255,.95);
+      border-radius: 28px;
+      padding: clamp(20px, 4vw, 34px);
+      margin: 20px 0;
+      box-shadow: var(--shadow);
+      transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+    }
+
+    .card.reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.7,.2,1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+    }
+
+    .card.reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card.reveal.visible:hover {
+      box-shadow: 0 18px 42px rgba(65,85,115,.17);
+      border-color: #f4dfcf;
+    }
+
+    .detail {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      padding: 17px 0;
+      border-bottom: 1px solid #dce8ee;
+    }
+
+    .detail:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .detail:first-child {
+      padding-top: 0;
+    }
+
+    .ico {
+      font-size: 30px;
+      text-align: center;
+      transition: transform .3s ease;
+    }
+
+    .detail:hover .ico {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    p {
+      margin: 4px 0;
+      font-size: clamp(16px, 2.5vw, 21px);
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    strong {
+      font-weight: 750;
+    }
+
+    /* Кнопка копирования */
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 11px 17px;
+      border: 0;
+      border-radius: 14px;
+      background: #dff3fa;
+      color: #183b67;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition:
+        background .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease;
+    }
+
+    .copy-btn:hover {
+      background: #c8eaf5;
+      box-shadow: 0 5px 15px rgba(24,59,103,.12);
+      transform: translateY(-2px);
+    }
+
+    .copy-btn:active {
+      transform: scale(.96);
+    }
+
+    .copy-btn:focus-visible {
+      outline: 3px solid #65a7b8;
+      outline-offset: 3px;
+    }
+
+    /* Инструкция ЕРИП */
+    .steps {
+      list-style: none;
+      margin: 18px 0 0;
+      padding: 0;
+      counter-reset: step;
+    }
+
+    .steps li {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      font-size: clamp(16px, 2.5vw, 21px);
+      line-height: 1.4;
+      margin: 12px 0;
+      counter-increment: step;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      display: flex;
+      flex: 0 0 30px;
+      width: 30px;
+      height: 30px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d5f0f8, #ffe5d1);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    /* Благодарность */
+    footer {
+      text-align: center;
+      padding: 28px 12px 8px;
+      color: var(--rust);
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-weight: bold;
+      font-size: clamp(21px, 3.5vw, 29px);
+      animation: fadeIn 1.2s ease both;
+    }
+
+    footer span {
+      display: block;
+      font-family: Arial, sans-serif;
+      font-style: normal;
+      font-size: 34px;
+      margin-bottom: 12px;
+      animation: heartbeat 2.5s ease-in-out infinite;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #5d7185;
+      text-align: center;
+      line-height: 1.5;
+      margin-top: 18px;
+    }
+
+    .note::before {
+      content: "♡ ";
+      color: var(--rust);
+    }
+
+    @keyframes heroEnter {
+      from {
+        opacity: 0;
+        transform: translateY(-25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      8% {
+        transform: scale(1.08);
+      }
+      16% {
+        transform: scale(1);
+      }
+      24% {
+        transform: scale(1.05);
+      }
+      32% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        opacity: .45;
+        transform: scale(.8) rotate(0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(20deg);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      main {
+        padding: 15px 11px 26px;
+      }
+
+      .hero {
+        padding: 22px 16px;
+        gap: 12px;
+        border-radius: 24px;
+      }
+
+      .hero::after {
+        right: 12px;
+        top: 7px;
+      }
+
+      .card {
+        border-radius: 23px;
+        margin: 16px 0;
+      }
+
+      .detail {
+        grid-template-columns: 35px 1fr;
+        gap: 10px;
+      }
+
+      .ico {
+        font-size: 25px;
+      }
+
+      h2 {
+        margin: 29px 0 19px;
+      }
+    }
+
+    /* Уважение к настройкам уменьшения анимации */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .card.reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<main>
-  <header class="hero">
-    <div class="heart" aria-hidden="true">❤️🌱</div>
-    <h1>Каждый вклад — это частичка доброты</h1>
-  </header>
-  <h2>Наши реквизиты<br>для благотворительности</h2>
-  <section class="card" aria-label="Банковские реквизиты">
-    <div class="detail"><div class="ico">🏥</div><div><p><strong>Получатель:</strong></p><p>УЗ «Могилёвский специализированный Дом ребенка для детей с органическим поражением центральной нервной системы с нарушением психики»</p></div></div>
-    <div class="detail"><div class="ico">📄</div><div><p><strong>УНП:</strong></p><p>790321211</p></div></div>
-    <div class="detail"><div class="ico">💳</div><div><p><strong>Расчётный счёт (IBAN):</strong></p><p>BY60 AKBB 3642 0253 8259 9700 0000</p></div></div>
-    <div class="detail"><div class="ico">🏦</div><div><p><strong>Банк получателя:</strong></p><p>МОУ 700 ОАО АСБ Беларусбанк,<br>г. Могилёв, ул. Первомайская, 71</p></div></div>
-    <div class="detail"><div class="ico">🌐</div><div><p><strong>BIC / SWIFT банка:</strong></p><p>AKBBBY2X</p></div></div>
-    <div class="detail"><div class="ico">🤲</div><div><p><strong>Назначение платежа:</strong></p><p>Благотворительная спонсорская помощь на укрепление материально-технической базы учреждения (МТБ)</p></div></div>
-  </section>
-  <section class="card" aria-label="Как сделать пожертвование через ЕРИП">
-    <p><strong>🧾 Система «Расчёт» ЕРИП:</strong></p>
-    <ul class="steps">
-      <li>Система «Расчёт» (ЕРИП)</li>
-      <li>Соцобслуживание, здравоохранение</li>
-      <li>Здравоохранение</li>
-      <li>Охрана материнства и детства</li>
-      <li>Могилёв</li>
-      <li>Специализированный Дом ребенка</li>
-      <li>Взносы на укрепление МТБ</li>
-    </ul>
-  </section>
-  <footer><span>🧡</span>Мы искренне благодарны за любую помощь!</footer>
-  <div class="note">Пожалуйста, перед переводом проверьте реквизиты у учреждения.</div>
-</main>
+  <!-- Декоративные сердечки -->
+  <div class="floating" aria-hidden="true">
+    <span class="float-item">♡</span>
+    <span class="float-item">✦</span>
+    <span class="float-item">💗</span>
+    <span class="float-item">♡</span>
+    <span class="float-item">✧</span>
+  </div>
+
+  <main>
+    <header class="hero">
+      <div class="heart" aria-hidden="true">❤️🌱</div>
+      <h1>Каждый вклад — это частичка доброты</h1>
+    </header>
+
+    <h2>Наши реквизиты<br>для благотворительности</h2>
+
+    <section class="card reveal" aria-label="Банковские реквизиты">
+      <div class="detail">
+        <div class="ico">🏥</div>
+        <div>
+          <p><strong>Получатель:</strong></p>
+          <p>УЗ «Могилёвский специализированный Дом ребенка для детей с органическим поражением центральной нервной системы с нарушением психики»</p>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="ico">📄</div>
+        <div>
+          <p><strong>УНП:</strong></p>
+          <p>790321211</p>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="ico">💳</div>
+        <div>
+          <p><strong>Расчётный счёт (IBAN):</strong></p>
+          <p id="iban">BY60 AKBB 3642 0253 8259 9700 0000</p>
+          <button class="copy-btn" id="copyIban" type="button">
+            📋 Копировать счёт
+          </button>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="ico">🏦</div>
+        <div>
+          <p><strong>Банк получателя:</strong></p>
+          <p>МОУ 700 ОАО АСБ Беларусбанк,<br>г. Могилёв, ул. Первомайская, 71</p>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="ico">🌐</div>
+        <div>
+          <p><strong>BIC / SWIFT банка:</strong></p>
+          <p>AKBBBY2X</p>
+        </div>
+      </div>
+
+      <div class="detail">
+        <div class="ico">🤲</div>
+        <div>
+          <p><strong>Назначение платежа:</strong></p>
+          <p>Благотворительная спонсорская помощь на укрепление материально-технической базы учреждения (МТБ)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card reveal" aria-label="Как сделать пожертвование через ЕРИП">
+      <p><strong>🧾 Система «Расчёт» ЕРИП:</strong></p>
+      <ul class="steps">
+        <li>Система «Расчёт» (ЕРИП)</li>
+        <li>Соцобслуживание, здравоохранение</li>
+        <li>Здравоохранение</li>
+        <li>Охрана материнства и детства</li>
+        <li>Могилёв</li>
+        <li>Специализированный Дом ребенка</li>
+        <li>Взносы на укрепление МТБ</li>
+      </ul>
+    </section>
+
+    <footer>
+      <span>🧡</span>
+      Мы искренне благодарны за любую помощь!
+    </footer>
+
+    <div class="note">
+      Пожалуйста, перед переводом проверьте реквизиты у учреждения.
+    </div>
+  </main>
+
+  <script>
+    // Плавное появление карточек при прокрутке
+    const cards = document.querySelectorAll('.reveal');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      cards.forEach((card) => observer.observe(card));
+    } else {
+      cards.forEach((card) => card.classList.add('visible'));
+    }
+
+    // Копирование банковского счёта
+    const copyButton = document.getElementById('copyIban');
+
+    copyButton.addEventListener('click', async () => {
+      const iban = document.getElementById('iban').textContent.trim();
+      const originalText = '📋 Копировать счёт';
+
+      try {
+        await navigator.clipboard.writeText(iban);
+        copyButton.textContent = '✅ Счёт скопирован!';
+      } catch (error) {
+        const field = document.createElement('textarea');
+        field.value = iban;
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+
+        const copied = document.execCommand('copy');
+        field.remove();
+
+        copyButton.textContent = copied
+          ? '✅ Счёт скопирован!'
+          : 'Не удалось скопировать';
+
+      }
+
+      setTimeout(() => {
+        copyButton.textContent = originalText;
+      }, 2200);
+    });
+  </script>
 </body>
 </html>

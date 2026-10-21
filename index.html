@@ -1,37 +1,197 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e8f5fb">
+  <meta name="description" content="Поддержите Могилёвский специализированный Дом ребёнка. Каждая благотворительная помощь помогает укреплять материально-техническую базу учреждения.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_BY">
+  <meta property="og:title" content="Каждый вклад — частичка доброты">
+  <meta property="og:description" content="Информация о благотворительной помощи Могилёвскому специализированному Дому ребёнка.">
+  <meta property="og:url" content="https://dom-rebenka.github.io/">
+  <meta property="og:image" content="https://dom-rebenka.github.io/og-image.png">
+  <meta name="twitter:card" content="summary">
+  <title>Каждый вклад — частичка доброты | Дом ребёнка</title>
+  <link rel="canonical" href="https://dom-rebenka.github.io/">
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #dff3fa;
+      --blue-deep: #b8e5f2;
+      --peach: #ffe4c9;
+      --peach-deep: #f5c49e;
+      --ink: #183b67;
+      --muted: #53677d;
+      --paper: rgba(255,255,255,.88);
+      --line: rgba(24,59,103,.12);
+      --shadow: 0 18px 50px rgba(24,59,103,.09);
+      --radius: 26px;
+      --focus: #1b6cb0;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(255,228,201,.72), transparent 26rem),
+        radial-gradient(circle at 92% 25%, rgba(223,243,250,.95), transparent 30rem),
+        linear-gradient(160deg, #f9fcff 0%, #fff8f0 55%, #f3fbff 100%);
+      font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-wrap: anywhere;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button { font: inherit; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    .container { width: min(1100px, calc(100% - 40px)); margin-inline: auto; }
+    .site-header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(250,253,255,.88);
+      border-bottom: 1px solid rgba(24,59,103,.08);
+      backdrop-filter: blur(14px);
+    }
+    .nav-wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark {
+      display: grid; place-items: center; width: 42px; height: 42px; border-radius: 15px;
+      color: var(--ink); background: linear-gradient(135deg, var(--blue), var(--peach)); font-size: 22px;
+      box-shadow: 0 6px 18px rgba(24,59,103,.09);
+    }
+    .brand-text { max-width: 225px; font-size: 14px; line-height: 1.25; }
+    .nav { display: flex; align-items: center; gap: 7px; }
+    .nav a { text-decoration: none; padding: 10px 13px; border-radius: 999px; color: var(--muted); font-size: 13px; font-weight: 700; transition: background .2s, color .2s; }
+    .nav a:hover, .nav a:focus-visible { background: var(--blue); color: var(--ink); }
+    .nav .nav-cta { color: #fff; background: var(--ink); padding-inline: 17px; }
+    .nav .nav-cta:hover { background: #24578b; color: #fff; }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 14px; padding: 10px 13px; cursor: pointer; font-weight: 800; }
+    main { overflow: clip; }
+    .hero { padding: 72px 0 52px; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 42px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border: 1px solid rgba(24,59,103,.1); background: rgba(255,255,255,.72); border-radius: 999px; color: #3e668b; font-size: 12px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin: 19px 0 18px; font-size: clamp(38px, 5.2vw, 66px); line-height: 1.08; letter-spacing: -.055em; max-width: 690px; }
+    h1 span { color: #b9694c; }
+    .hero-copy { max-width: 600px; color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; min-height: 48px; border: 0; border-radius: 15px; padding: 13px 19px; cursor: pointer; text-decoration: none; font-weight: 800; font-size: 14px; transition: transform .2s, box-shadow .2s, background .2s; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--ink); color: white; box-shadow: 0 10px 24px rgba(24,59,103,.18); }
+    .button-primary:hover { background: #24578b; }
+    .button-soft { background: #fff; color: var(--ink); border: 1px solid var(--line); }
+    .button-soft:hover { box-shadow: 0 8px 20px rgba(24,59,103,.08); }
+    .hero-art {
+      position: relative; min-height: 350px; display: grid; place-items: center;
+      border-radius: 38px; border: 1px solid rgba(255,255,255,.85);
+      background: linear-gradient(145deg, rgba(223,243,250,.92), rgba(255,228,201,.88));
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero-art::before, .hero-art::after { content: ""; position: absolute; border-radius: 50%; background: rgba(255,255,255,.4); }
+    .hero-art::before { width: 230px; height: 230px; top: -65px; right: -30px; }
+    .hero-art::after { width: 170px; height: 170px; bottom: -50px; left: -20px; }
+    .art-heart { position: relative; z-index: 1; width: 165px; height: 165px; display: grid; place-items: center; border-radius: 48px; background: rgba(255,255,255,.65); font-size: 92px; transform: rotate(-5deg); box-shadow: 0 20px 50px rgba(24,59,103,.12); }
+    .float-note { position: absolute; z-index: 2; background: rgba(255,255,255,.92); border: 1px solid rgba(255,255,255,.95); box-shadow: 0 12px 28px rgba(24,59,103,.1); border-radius: 18px; padding: 13px 16px; font-size: 13px; font-weight: 800; }
+    .float-note.one { top: 28px; left: 24px; transform: rotate(-4deg); }
+    .float-note.two { bottom: 30px; right: 22px; transform: rotate(3deg); }
+    .section { padding: 55px 0; }
+    .section-head { max-width: 720px; margin: 0 auto 28px; text-align: center; }
+    .section-kicker { color: #b9694c; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
+    h2 { margin: 8px 0 12px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; letter-spacing: -.04em; }
+    .section-head p { color: var(--muted); margin-bottom: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { padding: 25px; border-radius: var(--radius); border: 1px solid rgba(255,255,255,.95); background: var(--paper); box-shadow: 0 12px 35px rgba(24,59,103,.055); }
+    .card-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(135deg, var(--blue), var(--peach)); font-size: 23px; margin-bottom: 16px; }
+    .info-card h3 { margin-bottom: 8px; font-size: 18px; letter-spacing: -.02em; }
+    .info-card p { color: var(--muted); font-size: 14px; margin-bottom: 0; }
+    .donation-wrap { display: grid; grid-template-columns: 1.12fr .88fr; gap: 20px; align-items: start; }
+    .panel { padding: clamp(20px, 3vw, 32px); border-radius: var(--radius); background: var(--paper); border: 1px solid rgba(255,255,255,.95); box-shadow: var(--shadow); }
+    .panel h3 { font-size: 21px; margin-bottom: 18px; letter-spacing: -.03em; }
+    .details { display: grid; gap: 0; }
+    .detail-row { display: grid; grid-template-columns: 42px minmax(0,1fr); gap: 13px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+    .detail-row:first-child { padding-top: 0; }
+    .detail-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .detail-icon { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; background: #edf8fc; font-size: 19px; }
+    .detail-label { display: block; margin-bottom: 3px; font-size: 12px; color: var(--muted); font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
+    .detail-value { font-size: 14px; font-weight: 700; line-height: 1.55; }
+    .detail-value.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+    .copy-row { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 10px; }
+    .copy-button { border: 1px solid rgba(24,59,103,.13); border-radius: 11px; background: #f2f9fc; color: var(--ink); padding: 8px 11px; cursor: pointer; font-size: 12px; font-weight: 800; }
+    .copy-button:hover { background: var(--blue); }
+    .copy-status { min-height: 20px; margin: 6px 0 0; color: #24734b; font-size: 12px; font-weight: 800; }
+    .erip-panel { background: linear-gradient(155deg, rgba(255,255,255,.95), rgba(255,244,232,.86)); }
+    .steps { display: grid; gap: 10px; counter-reset: step; padding: 0; margin: 0; list-style: none; }
+    .steps li { counter-increment: step; display: grid; grid-template-columns: 31px minmax(0,1fr); align-items: start; gap: 10px; color: var(--muted); font-size: 14px; }
+    .steps li::before { content: counter(step); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 10px; color: var(--ink); background: var(--blue); font-size: 12px; font-weight: 800; }
+    .steps strong { color: var(--ink); }
+    .note { margin-top: 19px; padding: 14px 15px; border-radius: 15px; background: rgba(223,243,250,.62); color: var(--muted); font-size: 12px; }
+    .thankyou { padding: 36px; text-align: center; border-radius: 30px; background: linear-gradient(125deg, rgba(223,243,250,.88), rgba(255,228,201,.82)); border: 1px solid rgba(255,255,255,.95); }
+    .thankyou .heart { font-size: 34px; }
+    .thankyou h2 { margin-top: 8px; }
+    .thankyou p { max-width: 650px; margin: 0 auto; color: var(--muted); }
+    footer { padding: 28px 0 36px; color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; }
+    .back-top { text-decoration: none; font-weight: 800; color: var(--ink); }
+    .to-top { position: fixed; z-index: 15; right: 18px; bottom: 18px; width: 46px; height: 46px; border: 0; border-radius: 16px; background: var(--ink); color: white; box-shadow: 0 10px 25px rgba(24,59,103,.2); cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(8px); transition: .2s; }
+    .to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .no-js .reveal { opacity: 1; transform: none; }
+    @media (max-width: 800px) {
+      .container { width: min(100% - 30px, 620px); }
+      .nav-wrap { min-height: 68px; }
+      .brand-text { max-width: 190px; }
+      .menu-toggle { display: inline-flex; }
+      .nav { display: none; position: absolute; top: calc(100% + 8px); left: 15px; right: 15px; padding: 12px; flex-direction: column; align-items: stretch; background: rgba(255,255,255,.98); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+      .nav.open { display: flex; }
+      .nav a { padding: 12px 14px; }
+      .nav .nav-cta { text-align: center; }
+      .hero { padding-top: 42px; }
+      .hero-grid, .donation-wrap { grid-template-columns: 1fr; gap: 25px; }
+      .hero-art { min-height: 275px; }
+      .art-heart { width: 130px; height: 130px; border-radius: 38px; font-size: 70px; }
+      .cards { grid-template-columns: 1fr; }
+      .info-card { padding: 22px; }
+      .section { padding: 40px 0; }
+      .thankyou { padding: 27px 20px; }
+    }
+    @media (max-width: 420px) {
+      .container { width: calc(100% - 24px); }
+      .brand-text { max-width: 165px; font-size: 12px; }
+      .brand-mark { width: 38px; height: 38px; }
+      h1 { font-size: 39px; }
+      .hero-actions .button { width: 100%; }
+      .float-note { font-size: 11px; padding: 10px 12px; }
+      .float-note.one { left: 12px; }
+      .float-note.two { right: 12px; }
+      .panel { padding: 20px 17px; }
+      .detail-row { grid-template-columns: 35px minmax(0,1fr); gap: 10px; }
+      .detail-icon { width: 34px; height: 34px; font-size: 16px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
   <script>
+    /* Prevent browsers from restoring an old scroll position on reload. */
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     (function () {
-      const navigation = performance.getEntriesByType('navigation')[0];
-
-      if (navigation && navigation.type === 'reload') {
-        if ('scrollRestoration' in history) {
-          history.scrollRestoration = 'manual';
+      try {
+        var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if (nav && nav.type === "reload" && location.hash) {
+          history.replaceState(null, "", location.pathname + location.search);
         }
-
-        if (location.hash) {
-          history.replaceState(
-            null,
-            '',
-            location.pathname + location.search
-          );
-        }
-
-        window.addEventListener('load', function () {
-          window.scrollTo(0, 0);
-        }, { once: true });
-      }
+      } catch (e) {}
     })();
   </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f7f9fc">
-  <meta name="description" content="Могилёвский специализированный Дом ребёнка. Забота, поддержка и помощь детям.">
-  <title>Дом ребёнка — забота начинается с сердца</title>
-
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L81GFL9QY5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -39,823 +199,20 @@
     gtag('js', new Date());
     gtag('config', 'G-L81GFL9QY5');
   </script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #f7f9fc;
-      --white: #fff;
-      --ink: #183453;
-      --muted: #718198;
-      --blue: #3978a9;
-      --blue-light: #e5f1f8;
-      --peach: #f7c9ad;
-      --peach-light: #fff0e6;
-      --line: rgba(24, 52, 83, .09);
-      --radius: 26px;
-      --shadow: 0 18px 55px rgba(35, 65, 96, .08);
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 90px;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: 'Manrope', sans-serif;
-      font-size: 15px;
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; }
-
-    .container {
-      width: min(1160px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .section { padding: 100px 0; }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 17px;
-      color: var(--blue);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-    }
-
-    .eyebrow::before {
-      width: 24px;
-      height: 2px;
-      background: var(--peach);
-      content: "";
-    }
-
-    h1, h2, h3, p { margin-top: 0; }
-
-    h1, h2, h3 {
-      letter-spacing: -1.4px;
-      line-height: 1.2;
-    }
-
-    h1 {
-      margin-bottom: 24px;
-      font-size: clamp(38px, 5.6vw, 70px);
-      font-weight: 800;
-    }
-
-    h2 {
-      margin-bottom: 18px;
-      font-size: clamp(30px, 4vw, 46px);
-      font-weight: 800;
-    }
-
-    h3 {
-      font-size: 21px;
-      font-weight: 800;
-    }
-
-    .muted { color: var(--muted); }
-
-    .button {
-      display: inline-flex;
-      min-height: 54px;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 24px;
-      border: 0;
-      border-radius: 999px;
-      background: var(--ink);
-      color: white;
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform .25s, background .25s, box-shadow .25s;
-    }
-
-    .button:hover {
-      transform: translateY(-3px);
-      background: var(--blue);
-      box-shadow: 0 12px 28px rgba(57, 120, 169, .2);
-    }
-
-    .button-light {
-      background: white;
-      color: var(--ink);
-      border: 1px solid var(--line);
-    }
-
-    .button-light:hover {
-      background: var(--blue-light);
-      color: var(--ink);
-      box-shadow: none;
-    }
-
-    .card {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: white;
-      box-shadow: var(--shadow);
-    }
-
-    /* Header */
-
-    .header {
-      position: sticky;
-      z-index: 20;
-      top: 0;
-      border-bottom: 1px solid rgba(24, 52, 83, .06);
-      background: rgba(247, 249, 252, .88);
-      backdrop-filter: blur(18px);
-    }
-
-    .nav {
-      min-height: 82px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border-radius: 16px;
-      background: var(--blue-light);
-      color: var(--blue);
-      font-size: 23px;
-    }
-
-    .brand-name {
-      display: block;
-      font-size: 13px;
-      font-weight: 800;
-      line-height: 1.4;
-    }
-
-    .brand-caption {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 27px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .nav-links a:not(.button) {
-      transition: color .2s;
-    }
-
-    .nav-links a:not(.button):hover { color: var(--blue); }
-
-    .nav-links .button {
-      min-height: 44px;
-      padding: 10px 18px;
-    }
-
-    /* Hero */
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding: 84px 0 90px;
-    }
-
-    .hero::before {
-      position: absolute;
-      top: -180px;
-      right: -120px;
-      width: 530px;
-      height: 530px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #e0eef8 0%, rgba(224,238,248,0) 70%);
-      content: "";
-      pointer-events: none;
-    }
-
-    .hero::after {
-      position: absolute;
-      bottom: -260px;
-      left: -160px;
-      width: 470px;
-      height: 470px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ffeadc 0%, rgba(255,234,220,0) 70%);
-      content: "";
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      align-items: center;
-      gap: 65px;
-    }
-
-    .hero-copy { animation: rise .8s ease both; }
-
-    .hero h1 span { color: var(--blue); }
-
-    .hero-text {
-      max-width: 530px;
-      margin-bottom: 30px;
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .hero-visual {
-      position: relative;
-      min-height: 410px;
-      display: grid;
-      place-items: center;
-      animation: rise 1s .12s ease both;
-    }
-
-    .visual-circle {
-      position: relative;
-      width: min(100%, 390px);
-      aspect-ratio: 1;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.9);
-      border-radius: 48% 52% 56% 44% / 46% 43% 57% 54%;
-      background: linear-gradient(145deg, #e4f1fa, #fce7d8);
-      box-shadow: 0 30px 80px rgba(48, 85, 119, .12);
-      animation: float 7s ease-in-out infinite;
-    }
-
-    .visual-inner {
-      width: 72%;
-      aspect-ratio: 1;
-      display: grid;
-      place-items: center;
-      border: 1px solid rgba(255,255,255,.8);
-      border-radius: 50%;
-      background: rgba(255,255,255,.45);
-    }
-
-    .visual-heart {
-      color: var(--blue);
-      font-size: clamp(100px, 15vw, 160px);
-      line-height: 1;
-      text-shadow: 0 15px 30px rgba(57, 120, 169, .12);
-    }
-
-    .floating-note {
-      position: absolute;
-      right: -4px;
-      bottom: 32px;
-      max-width: 220px;
-      padding: 18px 21px;
-      border: 1px solid rgba(255,255,255,.8);
-      border-radius: 20px;
-      background: rgba(255,255,255,.9);
-      box-shadow: var(--shadow);
-      animation: float 5s ease-in-out infinite reverse;
-    }
-
-    .floating-note strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .floating-note span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    /* Intro strip */
-
-    .intro-strip { padding: 0 0 30px; }
-
-    .strip-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .strip-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 23px;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: rgba(255,255,255,.72);
-    }
-
-    .strip-icon {
-      width: 45px;
-      height: 45px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border-radius: 15px;
-      background: var(--blue-light);
-      font-size: 21px;
-    }
-
-    .strip-item:nth-child(2) .strip-icon { background: var(--peach-light); }
-
-    .strip-item strong {
-      display: block;
-      font-size: 13px;
-    }
-
-    .strip-item span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    /* Sections */
-
-    .section-heading {
-      max-width: 700px;
-      margin: 0 auto 48px;
-      text-align: center;
-    }
-
-    .section-description {
-      max-width: 590px;
-      margin: 0 auto;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-      gap: 22px;
-    }
-
-    .about-main {
-      padding: 40px;
-      background: linear-gradient(145deg, #fff, #f0f6fb);
-    }
-
-    .about-main p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .about-symbol {
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 28px;
-      border-radius: 19px;
-      background: var(--blue-light);
-      font-size: 27px;
-    }
-
-    .about-side {
-      display: grid;
-      gap: 16px;
-    }
-
-    .about-point {
-      display: flex;
-      gap: 17px;
-      padding: 25px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: white;
-    }
-
-    .point-mark {
-      width: 39px;
-      height: 39px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border-radius: 13px;
-      background: var(--peach-light);
-      color: #a56543;
-      font-weight: 800;
-    }
-
-    .about-point h3 {
-      margin-bottom: 7px;
-      font-size: 16px;
-      letter-spacing: -.3px;
-    }
-
-    .about-point p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    /* Help */
-
-    .help-section {
-      position: relative;
-      overflow: hidden;
-      background: #edf4f9;
-    }
-
-    .help-section::after {
-      position: absolute;
-      top: -180px;
-      right: -120px;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.45);
-      content: "";
-    }
-
-    .help-content { position: relative; z-index: 1; }
-
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .help-card {
-      padding: 30px;
-      transition: transform .3s, box-shadow .3s;
-    }
-
-    .help-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 55px rgba(35, 65, 96, .12);
-    }
-
-    .help-number {
-      display: inline-block;
-      margin-bottom: 25px;
-      color: var(--blue);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-
-    .help-card h3 { margin-bottom: 12px; }
-
-    .help-card p {
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    /* Donations */
-
-    .donation-grid {
-      display: grid;
-      grid-template-columns: .85fr 1.15fr;
-      align-items: start;
-      gap: 24px;
-    }
-
-    .donation-intro {
-      padding: 36px;
-      background: linear-gradient(145deg, #fff, #fff2e9);
-    }
-
-    .donation-intro p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .donation-intro .heart {
-      display: block;
-      margin-bottom: 20px;
-      color: #d88e71;
-      font-size: 38px;
-    }
-
-    .bank-details { padding: 32px; }
-
-    .bank-details h3 {
-      margin-bottom: 8px;
-      font-size: 20px;
-    }
-
-    .bank-caption {
-      margin-bottom: 25px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .detail-row {
-      display: grid;
-      grid-template-columns: 125px minmax(0, 1fr);
-      gap: 15px;
-      padding: 15px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .detail-row:last-of-type { border-bottom: 0; }
-
-    .detail-label {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .detail-value {
-      min-width: 0;
-      overflow-wrap: anywhere;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .iban {
-      font-size: 13px;
-      letter-spacing: .3px;
-    }
-
-    .copy-button {
-      margin-top: 20px;
-      min-height: 45px;
-      padding: 10px 17px;
-      font-size: 12px;
-    }
-
-    .erip {
-      margin-top: 24px;
-      padding: 30px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: white;
-    }
-
-    .erip h3 { margin-bottom: 7px; }
-
-    .erip > p {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .erip-list {
-      display: grid;
-      gap: 0;
-      margin: 22px 0 0;
-      padding: 0;
-      list-style: none;
-      counter-reset: erip;
-    }
-
-    .erip-list li {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-      counter-increment: erip;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .erip-list li:last-child { border-bottom: 0; }
-
-    .erip-list li::before {
-      width: 30px;
-      height: 30px;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      border-radius: 10px;
-      background: var(--blue-light);
-      color: var(--blue);
-      content: counter(erip, decimal-leading-zero);
-      font-size: 10px;
-      font-weight: 800;
-    }
-
-    .purpose-note {
-      margin-top: 18px;
-      padding: 17px;
-      border-radius: 15px;
-      background: var(--peach-light);
-      font-size: 12px;
-    }
-
-    /* Final banner */
-
-    .closing { padding-top: 30px; }
-
-    .closing-card {
-      position: relative;
-      overflow: hidden;
-      padding: 55px;
-      border-radius: 32px;
-      background: var(--ink);
-      color: white;
-    }
-
-    .closing-card::after {
-      position: absolute;
-      top: -110px;
-      right: -50px;
-      width: 320px;
-      height: 320px;
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 50%;
-      box-shadow: 0 0 0 35px rgba(255,255,255,.025),
-                  0 0 0 70px rgba(255,255,255,.025);
-      content: "";
-    }
-
-    .closing-content {
-      position: relative;
-      z-index: 1;
-      max-width: 650px;
-    }
-
-    .closing-card .eyebrow { color: #c4dfef; }
-
-    .closing-card h2 {
-      margin-bottom: 18px;
-      font-size: clamp(30px, 4vw, 43px);
-    }
-
-    .closing-card p {
-      max-width: 520px;
-      margin-bottom: 27px;
-      color: #c4d0de;
-      font-size: 14px;
-    }
-
-    /* Footer */
-
-    .footer { padding: 45px 0 25px; }
-
-    .footer-main {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 35px;
-      padding-bottom: 28px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .footer-description {
-      max-width: 450px;
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .footer-links a:hover { color: var(--blue); }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      padding-top: 20px;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    /* Animation */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity .7s ease, transform .7s ease;
-    }
-
-    .reveal.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0); }
-      50% { transform: translateY(-10px) rotate(1deg); }
-    }
-
-    /* Responsive */
-
-    @media (max-width: 900px) {
-      .nav-links { gap: 15px; }
-      .nav-links a:not(.button) { display: none; }
-      .hero-grid { gap: 25px; }
-      .hero-visual { min-height: 330px; }
-      .strip-grid { grid-template-columns: 1fr; }
-      .strip-item { padding: 17px 20px; }
-      .help-grid { grid-template-columns: 1fr; }
-      .help-card { padding: 25px; }
-      .help-number { margin-bottom: 12px; }
-      .donation-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 600px) {
-      .container { width: calc(100% - 30px); }
-      .section { padding: 70px 0; }
-      .nav { min-height: 70px; gap: 10px; }
-      .brand-mark { width: 39px; height: 39px; }
-      .brand-name { font-size: 11px; }
-      .brand-caption { font-size: 9px; }
-      .nav-links .button { min-height: 40px; padding: 9px 13px; font-size: 11px; }
-      .hero { padding: 55px 0 55px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 25px; }
-      .hero h1 { font-size: clamp(37px, 10vw, 52px); }
-      .hero-text { font-size: 14px; }
-      .hero-actions { display: grid; grid-template-columns: 1fr; }
-      .hero-visual { min-height: 300px; }
-      .visual-circle { width: 290px; max-width: 85%; }
-      .floating-note { right: 0; bottom: 10px; padding: 14px 16px; }
-      .section-heading { margin-bottom: 32px; }
-      .about-grid { grid-template-columns: 1fr; }
-      .about-main { padding: 28px; }
-      .about-point { padding: 20px; }
-      .bank-details, .donation-intro { padding: 24px 20px; }
-      .detail-row { grid-template-columns: 1fr; gap: 4px; }
-      .erip { padding: 24px 20px; }
-      .closing-card { padding: 35px 25px; }
-      .footer-main, .footer-bottom { flex-direction: column; }
-      .footer-links { gap: 12px 18px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
-      .reveal { opacity: 1; transform: none; }
-    }
-  </style>
 </head>
-
-<body>
-  <header class="header">
-    <div class="container nav">
+<body class="no-js">
+  <header class="site-header">
+    <div class="container nav-wrap">
       <a class="brand" href="#home" aria-label="На главную">
-        <span class="brand-mark">♡</span>
-        <span>
-          <span class="brand-name">Дом ребёнка</span>
-          <span class="brand-caption">Могилёв · забота и поддержка</span>
-        </span>
+        <span class="brand-mark" aria-hidden="true">♡</span>
+        <span class="brand-text">Дом ребёнка<br>частичка доброты</span>
       </a>
-
-      <nav class="nav-links" aria-label="Главная навигация">
-        <a href="#about">Об учреждении</a>
-        <a href="#help">Как помочь</a>
-        <a href="#donate" class="button">Поддержать детей ↗</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">☰ Меню</button>
+      <nav class="nav" id="site-nav" aria-label="Главная навигация">
+        <a href="#home">Главная</a>
+        <a href="#about">О помощи</a>
+        <a href="#donate">Реквизиты</a>
+        <a class="nav-cta" href="#donate">Помочь ♥</a>
       </nav>
     </div>
   </header>
@@ -863,147 +220,45 @@
   <main>
     <section class="hero" id="home">
       <div class="container hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">Место, где важна забота</span>
+        <div class="reveal">
+          <span class="eyebrow">♡ Благотворительная помощь</span>
           <h1>Каждый вклад — <span>частичка доброты</span></h1>
-          <p class="hero-text">
-            Забота складывается из простых вещей: внимания, участия
-            и готовности помочь. Вместе мы можем сделать жизнь детей
-            теплее и комфортнее.
-          </p>
+          <p class="hero-copy">Даже небольшой вклад помогает заботиться о детях и укреплять материально-техническую базу учреждения. Спасибо, что не остаётесь равнодушными.</p>
           <div class="hero-actions">
-            <a href="#donate" class="button">Как оказать помощь <span>↗</span></a>
-            <a href="#about" class="button button-light">Узнать об учреждении</a>
+            <a class="button button-primary" href="#donate">Как помочь <span aria-hidden="true">→</span></a>
+            <a class="button button-soft" href="#about">Узнать больше</a>
           </div>
         </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <div class="visual-circle">
-            <div class="visual-inner">
-              <span class="visual-heart">♡</span>
-            </div>
-          </div>
-          <div class="floating-note">
-            <strong>Доброта имеет значение</strong>
-            <span>Даже небольшой вклад важен</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="intro-strip">
-      <div class="container strip-grid">
-        <div class="strip-item reveal">
-          <span class="strip-icon">♡</span>
-          <div>
-            <strong>Внимание к каждому</strong>
-            <span>Забота и человеческое участие</span>
-          </div>
-        </div>
-        <div class="strip-item reveal">
-          <span class="strip-icon">✳</span>
-          <div>
-            <strong>Комфортная среда</strong>
-            <span>Поддержка повседневной жизни</span>
-          </div>
-        </div>
-        <div class="strip-item reveal">
-          <span class="strip-icon">⌁</span>
-          <div>
-            <strong>Помощь неравнодушных</strong>
-            <span>Вклад каждого имеет значение</span>
-          </div>
+        <div class="hero-art reveal" aria-label="Иллюстрация сердца — символа доброты">
+          <div class="float-note one">Маленькая помощь<br>имеет большое значение</div>
+          <div class="art-heart" aria-hidden="true">💗</div>
+          <div class="float-note two">Спасибо за доброту ✨</div>
         </div>
       </div>
     </section>
 
     <section class="section" id="about">
       <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Об учреждении</span>
-          <h2>Забота начинается с сердца</h2>
-          <p class="section-description">
-            Могилёвский специализированный Дом ребёнка для детей
-            с органическим поражением центральной нервной системы
-            с нарушением психики.
-          </p>
+        <div class="section-head reveal">
+          <span class="section-kicker">Вместе мы можем больше</span>
+          <h2>Почему важна ваша помощь</h2>
+          <p>Ваша поддержка — это возможность направлять средства на нужды учреждения и создавать более комфортные условия для детей.</p>
         </div>
-
-        <div class="about-grid">
-          <div class="card about-main reveal">
-            <div class="about-symbol">♡</div>
-            <h3>Тепло в простых вещах</h3>
-            <p>
-              Внимание, поддержка и участие помогают создавать
-              более комфортную среду для детей. Благотворительная
-              помощь может направляться на укрепление материально-технической
-              базы учреждения.
-            </p>
-            <a href="#donate" class="button button-light">Способы помощи ↗</a>
-          </div>
-
-          <div class="about-side">
-            <article class="about-point reveal">
-              <span class="point-mark">01</span>
-              <div>
-                <h3>Поддержка учреждения</h3>
-                <p>Вклад в материально-техническую базу и необходимые условия.</p>
-              </div>
-            </article>
-            <article class="about-point reveal">
-              <span class="point-mark">02</span>
-              <div>
-                <h3>Общее участие</h3>
-                <p>Помощь неравнодушных людей объединяет ради добрых дел.</p>
-              </div>
-            </article>
-            <article class="about-point reveal">
-              <span class="point-mark">03</span>
-              <div>
-                <h3>Каждый вклад важен</h3>
-                <p>Размер помощи не отменяет значения самого поступка.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section help-section" id="help">
-      <div class="container help-content">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Ваша поддержка</span>
-          <h2>Помочь можно по-разному</h2>
-          <p class="section-description">
-            Выберите удобный способ участия. Перед перечислением средств
-            проверьте реквизиты и назначение платежа.
-          </p>
-        </div>
-
-        <div class="help-grid">
-          <article class="card help-card reveal">
-            <span class="help-number">01 / ПЕРЕЧИСЛЕНИЕ</span>
-            <h3>Благотворительный взнос</h3>
-            <p>
-              Перечислите средства по банковским реквизитам учреждения
-              с указанным назначением платежа.
-            </p>
+        <div class="cards">
+          <article class="info-card reveal">
+            <div class="card-icon" aria-hidden="true">🤍</div>
+            <h3>Каждый вклад важен</h3>
+            <p>Размер помощи не определяет её ценность. Важны участие, внимание и желание поддержать.</p>
           </article>
-          <article class="card help-card reveal">
-            <span class="help-number">02 / ЕРИП</span>
-            <h3>Через систему «Расчёт»</h3>
-            <p>
-              Найдите учреждение в системе ЕРИП и следуйте шагам,
-              указанным в разделе ниже.
-            </p>
+          <article class="info-card reveal">
+            <div class="card-icon" aria-hidden="true">🌱</div>
+            <h3>Поддержка учреждения</h3>
+            <p>Благотворительные средства направляются на укрепление материально-технической базы.</p>
           </article>
-          <article class="card help-card reveal">
-            <span class="help-number">03 / УЧАСТИЕ</span>
-            <h3>Расскажите о помощи</h3>
-            <p>
-              Поделитесь информацией об учреждении с людьми,
-              которым небезразлична поддержка детей.
-            </p>
+          <article class="info-card reveal">
+            <div class="card-icon" aria-hidden="true">🫶</div>
+            <h3>Доброта объединяет</h3>
+            <p>Когда люди помогают вместе, даже небольшие добрые дела складываются в большую поддержку.</p>
           </article>
         </div>
       </div>
@@ -1011,193 +266,188 @@
 
     <section class="section" id="donate">
       <div class="container">
-        <div class="section-heading reveal">
-          <span class="eyebrow">Благотворительность</span>
-          <h2>Поддержать Дом ребёнка</h2>
-          <p class="section-description">
-            Ниже приведены банковские реквизиты и путь для оплаты через ЕРИП.
-            Перед оплатой сверьте данные с официальной информацией учреждения.
-          </p>
+        <div class="section-head reveal">
+          <span class="section-kicker">Способы поддержки</span>
+          <h2>Реквизиты для благотворительности</h2>
+          <p>Для перевода банковским платежом используйте реквизиты ниже. Назначение платежа можно скопировать отдельной кнопкой.</p>
         </div>
 
-        <div class="donation-grid">
-          <div class="card donation-intro reveal">
-            <span class="heart">♡</span>
-            <h3>Спасибо за ваше участие</h3>
-            <p>
-              Благотворительная спонсорская помощь направляется
-              на укрепление материально-технической базы учреждения.
-            </p>
-            <p>
-              Пожалуйста, внимательно указывайте назначение платежа
-              и проверяйте банковские данные перед отправкой.
-            </p>
-          </div>
-
-          <div class="card bank-details reveal">
-            <h3>Банковские реквизиты</h3>
-            <p class="bank-caption">Для перечисления благотворительной помощи</p>
-
-            <div class="detail-row">
-              <span class="detail-label">Получатель</span>
-              <span class="detail-value">
-                УЗ «Могилёвский специализированный Дом ребенка для детей
-                с органическим поражением центральной нервной системы
-                с нарушением психики»
-              </span>
+        <div class="donation-wrap">
+          <section class="panel reveal" aria-labelledby="bank-title">
+            <h3 id="bank-title">Банковские реквизиты</h3>
+            <div class="details">
+              <div class="detail-row">
+                <span class="detail-icon" aria-hidden="true">🏛️</span>
+                <div><span class="detail-label">Получатель</span><div class="detail-value">УЗ «Могилёвский специализированный Дом ребёнка для детей с органическим поражением центральной нервной системы с нарушением психики»</div></div>
+              </div>
+              <div class="detail-row">
+                <span class="detail-icon" aria-hidden="true">📄</span>
+                <div><span class="detail-label">УНП</span><div class="detail-value mono">790321211</div></div>
+              </div>
+              <div class="detail-row">
+                <span class="detail-icon" aria-hidden="true">💳</span>
+                <div>
+                  <span class="detail-label">Расчётный счёт (IBAN)</span>
+                  <div class="detail-value mono" id="ibanValue">BY60 AKBB 3642 0253 8259 9700 0000</div>
+                  <div class="copy-row"><button class="copy-button" type="button" data-copy="ibanValue" data-success="IBAN скопирован!">⧉ Скопировать IBAN</button></div>
+                  <p class="copy-status" id="ibanStatus" aria-live="polite"></p>
+                </div>
+              </div>
+              <div class="detail-row">
+                <span class="detail-icon" aria-hidden="true">🏦</span>
+                <div><span class="detail-label">Банк получателя</span><div class="detail-value">МОУ 700 ОАО АСБ Беларусбанк, г. Могилёв, ул. Первомайская, 71</div></div>
+              </div>
+              <div class="detail-row">
+                <span class="detail-icon" aria-hidden="true">🌐</span>
+                <div><span class="detail-label">BIC / SWIFT банка</span><div class="detail-value mono">AKBBBY2X</div></div>
+              </div>
+              <div class="detail-row">
+                <span class="detail-icon" aria-hidden="true">🫶</span>
+                <div>
+                  <span class="detail-label">Назначение платежа</span>
+                  <div class="detail-value" id="paymentPurpose">Благотворительная спонсорская помощь на укрепление материально-технической базы учреждения (МТБ)</div>
+                  <div class="copy-row"><button class="copy-button" type="button" data-copy="paymentPurpose" data-success="Назначение платежа скопировано!">⧉ Скопировать назначение</button></div>
+                  <p class="copy-status" id="paymentStatus" aria-live="polite"></p>
+                </div>
+              </div>
             </div>
+          </section>
 
-            <div class="detail-row">
-              <span class="detail-label">УНП</span>
-              <span class="detail-value">790321211</span>
-            </div>
-
-            <div class="detail-row">
-              <span class="detail-label">IBAN</span>
-              <span class="detail-value iban" id="iban">
-                BY60 AKBB 3642 0253 8259 9700 0000
-              </span>
-            </div>
-
-            <div class="detail-row">
-              <span class="detail-label">Банк</span>
-              <span class="detail-value">
-                МОУ 700 ОАО АСБ Беларусбанк, г. Могилёв, ул. Первомайская, 71
-              </span>
-            </div>
-
-            <div class="detail-row">
-              <span class="detail-label">SWIFT / BIC</span>
-              <span class="detail-value">AKBBBY2X</span>
-            </div>
-
-            <div class="detail-row">
-              <span class="detail-label">Назначение платежа</span>
-              <span class="detail-value" id="purpose">
-                Благотворительная спонсорская помощь на укрепление
-                материально-технической базы учреждения (МТБ)
-              </span>
-            </div>
-
-            <button class="button copy-button" type="button" id="copyIban">
-              Копировать IBAN
-            </button>
-            <span id="copyStatus" role="status" aria-live="polite"></span>
-          </div>
-        </div>
-
-        <div class="erip reveal">
-          <span class="eyebrow">Пошаговая инструкция</span>
-          <h3>Оплата через ЕРИП</h3>
-          <p>В системе «Расчёт» попробуйте пройти по следующему пути:</p>
-
-          <ol class="erip-list">
-            <li>Система «Расчёт» (ЕРИП)</li>
-            <li>Соцобслуживание, здравоохранение</li>
-            <li>Здравоохранение</li>
-            <li>Охрана материнства и детства</li>
-            <li>Могилёв</li>
-            <li>Специализированный Дом ребенка</li>
-            <li>Взносы на укрепление МТБ</li>
-          </ol>
-
-          <div class="purpose-note">
-            <strong>Обратите внимание:</strong> названия пунктов ЕРИП могут
-            меняться. Если нужный пункт не находится, уточните актуальный путь
-            у учреждения или в системе «Расчёт» перед оплатой.
-          </div>
+          <aside class="panel erip-panel reveal" aria-labelledby="erip-title">
+            <h3 id="erip-title">Оплата через систему ЕРИП</h3>
+            <p style="color:var(--muted);font-size:14px;margin-top:-7px;">В приложении банка откройте систему «Расчёт» и последовательно выберите пункты:</p>
+            <ol class="steps">
+              <li><span><strong>Система «Расчёт» (ЕРИП)</strong></span></li>
+              <li><span>Соцобслуживание, здравоохранение</span></li>
+              <li><span>Здравоохранение</span></li>
+              <li><span>Охрана материнства и детства</span></li>
+              <li><span>Могилёв</span></li>
+              <li><span>Специализированный Дом ребёнка</span></li>
+              <li><span><strong>Взносы на укрепление МТБ</strong></span></li>
+            </ol>
+            <div class="note">Перед подтверждением платежа проверьте название получателя и выбранный пункт в приложении банка. Доступность разделов может зависеть от банка.</div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section class="closing">
+    <section class="section">
       <div class="container">
-        <div class="closing-card reveal">
-          <div class="closing-content">
-            <span class="eyebrow">Спасибо, что не остаётесь в стороне</span>
-            <h2>Доброта начинается с маленького шага</h2>
-            <p>
-              Ваше внимание и желание помочь имеют значение.
-              Спасибо всем, кто поддерживает учреждение и детей.
-            </p>
-            <a href="#donate" class="button button-light">Посмотреть реквизиты ↗</a>
-          </div>
+        <div class="thankyou reveal">
+          <div class="heart" aria-hidden="true">💛</div>
+          <h2>Спасибо за ваше доброе сердце</h2>
+          <p>Мы искренне благодарны за любую помощь, внимание и поддержку. Пусть добро возвращается к вам.</p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-main">
-        <div>
-          <a class="brand" href="#home">
-            <span class="brand-mark">♡</span>
-            <span class="brand-name">Дом ребёнка</span>
-          </a>
-          <p class="footer-description">
-            Могилёвский специализированный Дом ребёнка для детей
-            с органическим поражением центральной нервной системы
-            с нарушением психики.
-          </p>
-        </div>
-
-        <nav class="footer-links" aria-label="Навигация внизу страницы">
-          <a href="#about">Об учреждении</a>
-          <a href="#help">Как помочь</a>
-          <a href="#donate">Реквизиты</a>
-          <a href="#home">Наверх ↑</a>
-        </nav>
-      </div>
-
-      <div class="footer-bottom">
-        <span>© <span id="year"></span> Дом ребёнка</span>
-        <span>С заботой о самом важном ♡</span>
-      </div>
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="currentYear"></span> Могилёвский специализированный Дом ребёнка</span>
+      <a class="back-top" href="#home">Наверх ↑</a>
     </div>
   </footer>
 
-  <script>
-    // Плавное появление элементов при прокрутке
-    const revealItems = document.querySelectorAll('.reveal');
+  <button class="to-top" id="toTop" type="button" aria-label="Вернуться наверх">↑</button>
 
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
+  <script>
+    document.body.classList.remove("no-js");
+
+    // Mobile navigation
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector("#site-nav");
+    if (menuToggle && nav) {
+      menuToggle.addEventListener("click", function () {
+        const isOpen = nav.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.innerHTML = isOpen ? "✕ Закрыть" : "☰ Меню";
+      });
+      nav.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          nav.classList.remove("open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.innerHTML = "☰ Меню";
+        });
+      });
+    }
+
+    // Copy buttons with clipboard fallback and clear feedback
+    async function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const ok = document.execCommand("copy");
+      textarea.remove();
+      if (!ok) throw new Error("Copy failed");
+    }
+
+    document.querySelectorAll("[data-copy]").forEach(function (button) {
+      button.addEventListener("click", async function () {
+        const target = document.getElementById(button.dataset.copy);
+        const statusId = button.dataset.copy === "ibanValue" ? "ibanStatus" : "paymentStatus";
+        const status = document.getElementById(statusId);
+        if (!target || !status) return;
+        const original = button.textContent;
+        try {
+          await copyText(target.textContent.trim());
+          status.textContent = button.dataset.success || "Скопировано!";
+          button.textContent = "✓ Скопировано";
+          window.setTimeout(function () {
+            button.textContent = original;
+            status.textContent = "";
+          }, 2600);
+        } catch (error) {
+          status.textContent = "Не удалось скопировать автоматически. Выделите текст и скопируйте вручную.";
+        }
+      });
+    });
+
+    // Reveal effects; disabled automatically for reduced-motion preferences
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealItems = document.querySelectorAll(".reveal");
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            obs.unobserve(entry.target);
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
           }
         });
       }, { threshold: 0.12 });
-
-      revealItems.forEach(item => observer.observe(item));
+      revealItems.forEach(function (item) { observer.observe(item); });
     } else {
-      revealItems.forEach(item => item.classList.add('is-visible'));
+      revealItems.forEach(function (item) { item.classList.add("is-visible"); });
     }
 
-    // Автоматический год в подвале
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Копирование IBAN
-    document.getElementById('copyIban').addEventListener('click', async () => {
-      const iban = document.getElementById('iban').textContent.trim();
-      const status = document.getElementById('copyStatus');
-      const button = document.getElementById('copyIban');
-
-      try {
-        await navigator.clipboard.writeText(iban);
-        button.textContent = 'IBAN скопирован ✓';
-        status.textContent = 'Реквизит скопирован.';
-      } catch (error) {
-        status.textContent = 'Не удалось скопировать автоматически: ' + iban;
-      }
-
-      setTimeout(() => {
-        button.textContent = 'Копировать IBAN';
-        status.textContent = '';
-      }, 3000);
+    // Year and back-to-top control
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+    const toTop = document.getElementById("toTop");
+    function updateToTop() {
+      toTop.classList.toggle("visible", window.scrollY > 450);
+    }
+    window.addEventListener("scroll", updateToTop, { passive: true });
+    toTop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
     });
+    updateToTop();
+
+    // If the page is reloaded, start at the top. Normal in-page navigation remains functional.
+    window.addEventListener("load", function () {
+      const navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+      if (navEntry && navEntry.type === "reload") {
+        if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+        window.scrollTo(0, 0);
+      }
+    }, { once: true });
   </script>
 </body>
 </html>

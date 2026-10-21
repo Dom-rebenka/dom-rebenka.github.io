@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#e8f5fb">
+  <meta name="theme-color" content="#f8fbff">
   <meta name="description" content="Поддержите Могилёвский специализированный Дом ребёнка. Каждая благотворительная помощь помогает укреплять материально-техническую базу учреждения.">
   <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
@@ -19,179 +19,867 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --blue: #dff3fa;
-      --blue-deep: #b8e5f2;
-      --peach: #ffe4c9;
-      --peach-deep: #f5c49e;
+      --blue: #e3f4fa;
+      --blue-deep: #b9e5f1;
+      --peach: #ffe8d6;
       --ink: #183b67;
-      --muted: #53677d;
+      --muted: #63758a;
       --paper: rgba(255,255,255,.88);
-      --line: rgba(24,59,103,.12);
-      --shadow: 0 18px 50px rgba(24,59,103,.09);
+      --line: rgba(24,59,103,.10);
+      --shadow: 0 20px 60px rgba(24,59,103,.08);
       --radius: 26px;
-      --focus: #1b6cb0;
+      --ease: cubic-bezier(.22,1,.36,1);
     }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
+
     body {
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at 8% 8%, rgba(255,228,201,.72), transparent 26rem),
-        radial-gradient(circle at 92% 25%, rgba(223,243,250,.95), transparent 30rem),
-        linear-gradient(160deg, #f9fcff 0%, #fff8f0 55%, #f3fbff 100%);
-      font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.65;
+        radial-gradient(ellipse at 5% 8%, #ffe8d6b8, transparent 28rem),
+        radial-gradient(ellipse at 95% 28%, #dff3fabd, transparent 30rem),
+        linear-gradient(160deg,#fbfdff 0%,#fffaf5 55%,#f4fbff 100%);
+      font-family: "Manrope",system-ui,-apple-system,sans-serif;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
       overflow-wrap: anywhere;
     }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .18;
+      background-image: radial-gradient(#7b9ab5 0.6px, transparent 0.6px);
+      background-size: 20px 20px;
+      mask-image: linear-gradient(to bottom,black,transparent 75%);
+    }
+
     a { color: inherit; }
-    button, a { -webkit-tap-highlight-color: transparent; }
     button { font: inherit; }
-    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
-    .container { width: min(1100px, calc(100% - 40px)); margin-inline: auto; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+
+    :focus-visible {
+      outline: 3px solid #3983bd;
+      outline-offset: 4px;
+    }
+
+    ::selection { background: #d9edf8; color: var(--ink); }
+
+    .container {
+      width: min(1100px,calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    /* Индикатор прокрутки */
+    .scroll-progress {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg,#82cce0,#e9ad8a);
+      box-shadow: 0 0 12px #9dd8e8;
+      pointer-events: none;
+    }
+
+    /* Верхняя навигация */
     .site-header {
-      position: sticky; top: 0; z-index: 20;
-      background: rgba(250,253,255,.88);
-      border-bottom: 1px solid rgba(24,59,103,.08);
-      backdrop-filter: blur(14px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250,253,255,.78);
+      border-bottom: 1px solid rgba(24,59,103,.07);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      animation: headerIn .8s var(--ease) both;
     }
-    .nav-wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
+
+    .nav-wrap {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
     .brand-mark {
-      display: grid; place-items: center; width: 42px; height: 42px; border-radius: 15px;
-      color: var(--ink); background: linear-gradient(135deg, var(--blue), var(--peach)); font-size: 22px;
-      box-shadow: 0 6px 18px rgba(24,59,103,.09);
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: var(--ink);
+      background: linear-gradient(135deg,var(--blue),var(--peach));
+      box-shadow: 0 7px 22px #183b6710;
+      font-size: 24px;
+      transition: transform .45s var(--ease), box-shadow .3s;
     }
-    .brand-text { max-width: 225px; font-size: 14px; line-height: 1.25; }
-    .nav { display: flex; align-items: center; gap: 7px; }
-    .nav a { text-decoration: none; padding: 10px 13px; border-radius: 999px; color: var(--muted); font-size: 13px; font-weight: 700; transition: background .2s, color .2s; }
-    .nav a:hover, .nav a:focus-visible { background: var(--blue); color: var(--ink); }
-    .nav .nav-cta { color: #fff; background: var(--ink); padding-inline: 17px; }
-    .nav .nav-cta:hover { background: #24578b; color: #fff; }
-    .menu-toggle { display: none; border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 14px; padding: 10px 13px; cursor: pointer; font-weight: 800; }
+
+    .brand:hover .brand-mark {
+      transform: rotate(-9deg) scale(1.06);
+      box-shadow: 0 10px 28px #183b671c;
+    }
+
+    .brand-text {
+      max-width: 230px;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav a {
+      position: relative;
+      text-decoration: none;
+      padding: 10px 13px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      transition: color .25s,background .25s,transform .25s;
+    }
+
+    .nav a:hover {
+      color: var(--ink);
+      background: #e7f4f9;
+      transform: translateY(-1px);
+    }
+
+    .nav .nav-cta {
+      color: white;
+      background: var(--ink);
+      padding-inline: 19px;
+      box-shadow: 0 5px 16px #183b671b;
+    }
+
+    .nav .nav-cta:hover {
+      background: #285783;
+      color: white;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 10px 13px;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
     main { overflow: clip; }
-    .hero { padding: 72px 0 52px; }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 42px; }
-    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border: 1px solid rgba(24,59,103,.1); background: rgba(255,255,255,.72); border-radius: 999px; color: #3e668b; font-size: 12px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
-    h1, h2, h3, p { margin-top: 0; }
-    h1 { margin: 19px 0 18px; font-size: clamp(38px, 5.2vw, 66px); line-height: 1.08; letter-spacing: -.055em; max-width: 690px; }
-    h1 span { color: #b9694c; }
-    .hero-copy { max-width: 600px; color: var(--muted); font-size: clamp(16px, 1.8vw, 19px); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .button { display: inline-flex; justify-content: center; align-items: center; gap: 9px; min-height: 48px; border: 0; border-radius: 15px; padding: 13px 19px; cursor: pointer; text-decoration: none; font-weight: 800; font-size: 14px; transition: transform .2s, box-shadow .2s, background .2s; }
-    .button:hover { transform: translateY(-2px); }
-    .button-primary { background: var(--ink); color: white; box-shadow: 0 10px 24px rgba(24,59,103,.18); }
-    .button-primary:hover { background: #24578b; }
-    .button-soft { background: #fff; color: var(--ink); border: 1px solid var(--line); }
-    .button-soft:hover { box-shadow: 0 8px 20px rgba(24,59,103,.08); }
-    .hero-art {
-      position: relative; min-height: 350px; display: grid; place-items: center;
-      border-radius: 38px; border: 1px solid rgba(255,255,255,.85);
-      background: linear-gradient(145deg, rgba(223,243,250,.92), rgba(255,228,201,.88));
-      box-shadow: var(--shadow); overflow: hidden;
+
+    /* Первый экран */
+    .hero { padding: 78px 0 66px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 48px;
     }
-    .hero-art::before, .hero-art::after { content: ""; position: absolute; border-radius: 50%; background: rgba(255,255,255,.4); }
-    .hero-art::before { width: 230px; height: 230px; top: -65px; right: -30px; }
-    .hero-art::after { width: 170px; height: 170px; bottom: -50px; left: -20px; }
-    .art-heart { position: relative; z-index: 1; width: 165px; height: 165px; display: grid; place-items: center; border-radius: 48px; background: rgba(255,255,255,.65); font-size: 92px; transform: rotate(-5deg); box-shadow: 0 20px 50px rgba(24,59,103,.12); }
-    .float-note { position: absolute; z-index: 2; background: rgba(255,255,255,.92); border: 1px solid rgba(255,255,255,.95); box-shadow: 0 12px 28px rgba(24,59,103,.1); border-radius: 18px; padding: 13px 16px; font-size: 13px; font-weight: 800; }
-    .float-note.one { top: 28px; left: 24px; transform: rotate(-4deg); }
-    .float-note.two { bottom: 30px; right: 22px; transform: rotate(3deg); }
-    .section { padding: 55px 0; }
-    .section-head { max-width: 720px; margin: 0 auto 28px; text-align: center; }
-    .section-kicker { color: #b9694c; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
-    h2 { margin: 8px 0 12px; font-size: clamp(28px, 4vw, 42px); line-height: 1.15; letter-spacing: -.04em; }
-    .section-head p { color: var(--muted); margin-bottom: 0; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card { padding: 25px; border-radius: var(--radius); border: 1px solid rgba(255,255,255,.95); background: var(--paper); box-shadow: 0 12px 35px rgba(24,59,103,.055); }
-    .card-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; background: linear-gradient(135deg, var(--blue), var(--peach)); font-size: 23px; margin-bottom: 16px; }
-    .info-card h3 { margin-bottom: 8px; font-size: 18px; letter-spacing: -.02em; }
-    .info-card p { color: var(--muted); font-size: 14px; margin-bottom: 0; }
-    .donation-wrap { display: grid; grid-template-columns: 1.12fr .88fr; gap: 20px; align-items: start; }
-    .panel { padding: clamp(20px, 3vw, 32px); border-radius: var(--radius); background: var(--paper); border: 1px solid rgba(255,255,255,.95); box-shadow: var(--shadow); }
-    .panel h3 { font-size: 21px; margin-bottom: 18px; letter-spacing: -.03em; }
-    .details { display: grid; gap: 0; }
-    .detail-row { display: grid; grid-template-columns: 42px minmax(0,1fr); gap: 13px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border: 1px solid #183b6712;
+      background: #ffffffad;
+      border-radius: 999px;
+      color: #426989;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    h1,h2,h3,p { margin-top: 0; }
+
+    h1 {
+      margin: 23px 0 20px;
+      font-size: clamp(39px,5.2vw,68px);
+      line-height: 1.07;
+      letter-spacing: -.065em;
+      max-width: 690px;
+    }
+
+    h1 span {
+      color: #b9694c;
+      background: linear-gradient(100deg,#a85c43,#d18b68);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-copy {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: clamp(16px,1.8vw,19px);
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      min-height: 50px;
+      border: 0;
+      border-radius: 15px;
+      padding: 14px 21px;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      transition: transform .3s var(--ease),box-shadow .3s,background .3s;
+    }
+
+    .button::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: -50%;
+      left: -80%;
+      width: 45%;
+      height: 200%;
+      transform: rotate(25deg);
+      background: #ffffff28;
+      transition: left .65s var(--ease);
+    }
+
+    .button:hover::after { left: 140%; }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button:active { transform: scale(.98); }
+
+    .button-primary {
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 10px 26px #183b6728;
+    }
+
+    .button-primary:hover {
+      background: #285783;
+      box-shadow: 0 15px 32px #183b6730;
+    }
+
+    .button-soft {
+      background: #ffffffc9;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .button-soft:hover { box-shadow: 0 10px 25px #183b6710; }
+
+    /* Иллюстрация с живой анимацией */
+    .hero-art {
+      position: relative;
+      min-height: 365px;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+      border-radius: 38px;
+      border: 1px solid #ffffffd9;
+      background: linear-gradient(145deg,#dff3fae8,#ffe4c9e0);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: artEnter 1s .15s var(--ease) both;
+    }
+
+    .hero-art::before,
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      background: #ffffff70;
+      pointer-events: none;
+    }
+
+    .hero-art::before {
+      width: 250px;
+      height: 250px;
+      top: -85px;
+      right: -45px;
+      animation: orbit 18s linear infinite;
+    }
+
+    .hero-art::after {
+      width: 190px;
+      height: 190px;
+      bottom: -65px;
+      left: -35px;
+      background: #ffffff55;
+      animation: orbit 22s linear infinite reverse;
+    }
+
+    .art-heart {
+      position: relative;
+      z-index: 1;
+      width: 168px;
+      height: 168px;
+      display: grid;
+      place-items: center;
+      border-radius: 49px;
+      background: #ffffffa8;
+      font-size: 90px;
+      transform: rotate(-5deg);
+      box-shadow: 0 24px 65px #183b6719;
+      animation: heartFloat 4.5s ease-in-out infinite;
+    }
+
+    .float-note {
+      position: absolute;
+      z-index: 2;
+      padding: 14px 17px;
+      border: 1px solid #ffffffed;
+      border-radius: 18px;
+      background: #ffffffed;
+      box-shadow: 0 12px 35px #183b6712;
+      font-size: 12px;
+      line-height: 1.6;
+      font-weight: 800;
+      animation: noteFloat 5s ease-in-out infinite;
+    }
+
+    .float-note.one {
+      top: 30px;
+      left: 22px;
+      transform: rotate(-3deg);
+    }
+
+    .float-note.two {
+      right: 20px;
+      bottom: 29px;
+      transform: rotate(2deg);
+      animation-delay: -2.5s;
+    }
+
+    /* Разделы */
+    .section { padding: 64px 0; }
+
+    .section-head {
+      max-width: 740px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .section-kicker {
+      color: #b9694c;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+    }
+
+    h2 {
+      margin: 10px 0 14px;
+      font-size: clamp(29px,4vw,43px);
+      line-height: 1.15;
+      letter-spacing: -.05em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3,minmax(0,1fr));
+      gap: 17px;
+    }
+
+    .info-card {
+      position: relative;
+      padding: 27px;
+      border: 1px solid #ffffffed;
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: 0 12px 35px #183b6708;
+      transition: transform .4s var(--ease),box-shadow .4s,border-color .4s;
+    }
+
+    .info-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      background: linear-gradient(140deg,#ffffff80,transparent 65%);
+      transition: opacity .35s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 45px #183b6712;
+      border-color: #ffffff;
+    }
+
+    .info-card:hover::before { opacity: 1; }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      background: linear-gradient(135deg,var(--blue),var(--peach));
+      font-size: 24px;
+      margin-bottom: 18px;
+      transition: transform .4s var(--ease);
+    }
+
+    .info-card:hover .card-icon { transform: translateY(-3px) rotate(-5deg); }
+
+    .info-card h3 {
+      margin-bottom: 9px;
+      font-size: 18px;
+      letter-spacing: -.025em;
+    }
+
+    .info-card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 0;
+      line-height: 1.8;
+    }
+
+    /* Реквизиты */
+    .donation-wrap {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 21px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      padding: clamp(21px,3vw,33px);
+      border-radius: var(--radius);
+      background: var(--paper);
+      border: 1px solid #ffffffed;
+      box-shadow: var(--shadow);
+      transition: box-shadow .35s,transform .35s var(--ease);
+    }
+
+    .panel:hover { box-shadow: 0 25px 65px #183b6710; }
+
+    .panel h3 {
+      font-size: 21px;
+      margin-bottom: 20px;
+      letter-spacing: -.035em;
+    }
+
+    .details { display: grid; }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 42px minmax(0,1fr);
+      gap: 13px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
     .detail-row:first-child { padding-top: 0; }
     .detail-row:last-child { border-bottom: 0; padding-bottom: 0; }
-    .detail-icon { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; background: #edf8fc; font-size: 19px; }
-    .detail-label { display: block; margin-bottom: 3px; font-size: 12px; color: var(--muted); font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
-    .detail-value { font-size: 14px; font-weight: 700; line-height: 1.55; }
-    .detail-value.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
-    .copy-row { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-top: 10px; }
-    .copy-button { border: 1px solid rgba(24,59,103,.13); border-radius: 11px; background: #f2f9fc; color: var(--ink); padding: 8px 11px; cursor: pointer; font-size: 12px; font-weight: 800; }
-    .copy-button:hover { background: var(--blue); }
-    .copy-status { min-height: 20px; margin: 6px 0 0; color: #24734b; font-size: 12px; font-weight: 800; }
-    .erip-panel { background: linear-gradient(155deg, rgba(255,255,255,.95), rgba(255,244,232,.86)); }
-    .steps { display: grid; gap: 10px; counter-reset: step; padding: 0; margin: 0; list-style: none; }
-    .steps li { counter-increment: step; display: grid; grid-template-columns: 31px minmax(0,1fr); align-items: start; gap: 10px; color: var(--muted); font-size: 14px; }
-    .steps li::before { content: counter(step); display: grid; place-items: center; width: 28px; height: 28px; border-radius: 10px; color: var(--ink); background: var(--blue); font-size: 12px; font-weight: 800; }
+
+    .detail-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: #edf8fc;
+      font-size: 19px;
+      transition: transform .3s var(--ease),background .3s;
+    }
+
+    .detail-row:hover .detail-icon {
+      transform: scale(1.07);
+      background: var(--blue);
+    }
+
+    .detail-label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: .045em;
+      text-transform: uppercase;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.7;
+    }
+
+    .detail-value.mono {
+      font-family: ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .copy-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .copy-button {
+      border: 1px solid #183b6715;
+      border-radius: 11px;
+      background: #f2f9fc;
+      color: var(--ink);
+      padding: 9px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+      transition: background .25s,transform .25s,box-shadow .25s;
+    }
+
+    .copy-button:hover {
+      background: var(--blue);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px #183b670d;
+    }
+
+    .copy-button:active { transform: scale(.97); }
+
+    .copy-status {
+      min-height: 20px;
+      margin: 6px 0 0;
+      color: #24734b;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .erip-panel {
+      background: linear-gradient(155deg,#ffffffed,#fff4e8df);
+    }
+
+    .erip-intro {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: -8px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+      counter-reset: step;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .steps li {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 31px minmax(0,1fr);
+      align-items: start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      color: var(--ink);
+      background: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      transition: background .25s,transform .25s;
+    }
+
+    .steps li:hover::before {
+      background: var(--peach);
+      transform: scale(1.08);
+    }
+
     .steps strong { color: var(--ink); }
-    .note { margin-top: 19px; padding: 14px 15px; border-radius: 15px; background: rgba(223,243,250,.62); color: var(--muted); font-size: 12px; }
-    .thankyou { padding: 36px; text-align: center; border-radius: 30px; background: linear-gradient(125deg, rgba(223,243,250,.88), rgba(255,228,201,.82)); border: 1px solid rgba(255,255,255,.95); }
-    .thankyou .heart { font-size: 34px; }
-    .thankyou h2 { margin-top: 8px; }
-    .thankyou p { max-width: 650px; margin: 0 auto; color: var(--muted); }
-    footer { padding: 28px 0 36px; color: var(--muted); font-size: 12px; }
-    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 22px; }
-    .back-top { text-decoration: none; font-weight: 800; color: var(--ink); }
-    .to-top { position: fixed; z-index: 15; right: 18px; bottom: 18px; width: 46px; height: 46px; border: 0; border-radius: 16px; background: var(--ink); color: white; box-shadow: 0 10px 25px rgba(24,59,103,.2); cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(8px); transition: .2s; }
-    .to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
-    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    .note {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 15px;
+      background: #dff3fa9e;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    /* Финальный блок */
+    .thankyou {
+      position: relative;
+      isolation: isolate;
+      padding: 42px 28px;
+      text-align: center;
+      border-radius: 31px;
+      background: linear-gradient(125deg,#dff3fae8,#ffe4c9d9);
+      border: 1px solid #ffffffed;
+      overflow: hidden;
+    }
+
+    .thankyou::before {
+      content: "♡";
+      position: absolute;
+      z-index: -1;
+      right: 5%;
+      top: -65px;
+      font-size: 210px;
+      line-height: 1;
+      color: #ffffff50;
+      transform: rotate(15deg);
+    }
+
+    .thankyou .heart {
+      font-size: 38px;
+      display: inline-block;
+      animation: heartBeat 2.8s ease-in-out infinite;
+    }
+
+    .thankyou h2 { margin-top: 9px; }
+
+    .thankyou p {
+      max-width: 650px;
+      margin: 0 auto;
+      color: var(--muted);
+    }
+
+    /* Подвал */
+    footer {
+      padding: 30px 0 38px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 23px;
+    }
+
+    .back-top {
+      text-decoration: none;
+      font-weight: 800;
+      color: var(--ink);
+      transition: color .2s;
+    }
+
+    .back-top:hover { color: #b9694c; }
+
+    /* Кнопка наверх */
+    .to-top {
+      position: fixed;
+      z-index: 40;
+      right: 20px;
+      bottom: 20px;
+      width: 48px;
+      height: 48px;
+      border: 1px solid #ffffff30;
+      border-radius: 16px;
+      background: var(--ink);
+      color: white;
+      box-shadow: 0 10px 28px #183b672b;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity .3s,visibility .3s,transform .3s var(--ease),background .3s;
+    }
+
+    .to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .to-top:hover {
+      background: #285783;
+      transform: translateY(-3px);
+    }
+
+    /* Появление элементов при прокрутке */
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity .8s var(--ease),transform .8s var(--ease);
+      transition-delay: var(--delay,0ms);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .no-js .reveal { opacity: 1; transform: none; }
+
+    @keyframes headerIn {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes artEnter {
+      from { opacity: 0; transform: translateY(25px) scale(.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes heartFloat {
+      0%,100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-12px) rotate(-2deg); }
+    }
+
+    @keyframes noteFloat {
+      0%,100% { margin-top: 0; }
+      50% { margin-top: -8px; }
+    }
+
+    @keyframes orbit {
+      from { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.08); }
+      to { transform: rotate(360deg) scale(1); }
+    }
+
+    @keyframes heartBeat {
+      0%,100% { transform: scale(1); }
+      8% { transform: scale(1.12); }
+      16% { transform: scale(1); }
+      24% { transform: scale(1.07); }
+      32% { transform: scale(1); }
+    }
+
+    /* Планшеты и телефоны */
     @media (max-width: 800px) {
-      .container { width: min(100% - 30px, 620px); }
-      .nav-wrap { min-height: 68px; }
+      .container { width: min(calc(100% - 30px),620px); }
+      .nav-wrap { min-height: 70px; }
       .brand-text { max-width: 190px; }
       .menu-toggle { display: inline-flex; }
-      .nav { display: none; position: absolute; top: calc(100% + 8px); left: 15px; right: 15px; padding: 12px; flex-direction: column; align-items: stretch; background: rgba(255,255,255,.98); border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+
+      .nav {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 15px;
+        right: 15px;
+        padding: 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 5px;
+        background: #fffffffa;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        animation: menuIn .25s var(--ease) both;
+      }
+
       .nav.open { display: flex; }
-      .nav a { padding: 12px 14px; }
+      .nav a { padding: 13px 14px; }
       .nav .nav-cta { text-align: center; }
-      .hero { padding-top: 42px; }
-      .hero-grid, .donation-wrap { grid-template-columns: 1fr; gap: 25px; }
-      .hero-art { min-height: 275px; }
-      .art-heart { width: 130px; height: 130px; border-radius: 38px; font-size: 70px; }
+
+      @keyframes menuIn {
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .hero { padding: 43px 0 35px; }
+
+      .hero-grid,
+      .donation-wrap {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .hero-art { min-height: 290px; }
+      .art-heart { width: 135px; height: 135px; border-radius: 40px; font-size: 72px; }
       .cards { grid-template-columns: 1fr; }
-      .info-card { padding: 22px; }
-      .section { padding: 40px 0; }
-      .thankyou { padding: 27px 20px; }
+      .info-card { padding: 23px; }
+      .section { padding: 43px 0; }
+      .thankyou { padding: 30px 20px; }
     }
+
     @media (max-width: 420px) {
       .container { width: calc(100% - 24px); }
       .brand-text { max-width: 165px; font-size: 12px; }
-      .brand-mark { width: 38px; height: 38px; }
+      .brand-mark { width: 39px; height: 39px; }
       h1 { font-size: 39px; }
       .hero-actions .button { width: 100%; }
       .float-note { font-size: 11px; padding: 10px 12px; }
-      .float-note.one { left: 12px; }
-      .float-note.two { right: 12px; }
+      .float-note.one { left: 10px; top: 20px; }
+      .float-note.two { right: 10px; bottom: 20px; }
       .panel { padding: 20px 17px; }
       .detail-row { grid-template-columns: 35px minmax(0,1fr); gap: 10px; }
       .detail-icon { width: 34px; height: 34px; font-size: 16px; }
+      .to-top { right: 12px; bottom: 12px; }
     }
+
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      *,*::before,*::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
       .reveal { opacity: 1; transform: none; }
     }
   </style>
-  <script>
-    /* Prevent browsers from restoring an old scroll position on reload. */
-    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
-    (function () {
-      try {
-        var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
-        if (nav && nav.type === "reload" && location.hash) {
-          history.replaceState(null, "", location.pathname + location.search);
-        }
-      } catch (e) {}
-    })();
-  </script>
-  <!-- Google Analytics -->
+
+  <!-- Google Analytics: сохранён существующий идентификатор -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L81GFL9QY5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -200,14 +888,20 @@
     gtag('config', 'G-L81GFL9QY5');
   </script>
 </head>
+
 <body class="no-js">
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home" aria-label="На главную">
         <span class="brand-mark" aria-hidden="true">♡</span>
         <span class="brand-text">Дом ребёнка<br>частичка доброты</span>
       </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">☰ Меню</button>
+
+      <button class="menu-toggle" type="button"
+        aria-expanded="false" aria-controls="site-nav">☰ Меню</button>
+
       <nav class="nav" id="site-nav" aria-label="Главная навигация">
         <a href="#home">Главная</a>
         <a href="#about">О помощи</a>
@@ -222,14 +916,24 @@
       <div class="container hero-grid">
         <div class="reveal">
           <span class="eyebrow">♡ Благотворительная помощь</span>
+
           <h1>Каждый вклад — <span>частичка доброты</span></h1>
-          <p class="hero-copy">Даже небольшой вклад помогает заботиться о детях и укреплять материально-техническую базу учреждения. Спасибо, что не остаётесь равнодушными.</p>
+
+          <p class="hero-copy">
+            Даже небольшой вклад помогает заботиться о детях и укреплять
+            материально-техническую базу учреждения. Спасибо, что не
+            остаётесь равнодушными.
+          </p>
+
           <div class="hero-actions">
-            <a class="button button-primary" href="#donate">Как помочь <span aria-hidden="true">→</span></a>
+            <a class="button button-primary" href="#donate">
+              Как помочь <span aria-hidden="true">→</span>
+            </a>
             <a class="button button-soft" href="#about">Узнать больше</a>
           </div>
         </div>
-        <div class="hero-art reveal" aria-label="Иллюстрация сердца — символа доброты">
+
+        <div class="hero-art" aria-label="Иллюстрация сердца — символа доброты">
           <div class="float-note one">Маленькая помощь<br>имеет большое значение</div>
           <div class="art-heart" aria-hidden="true">💗</div>
           <div class="float-note two">Спасибо за доброту ✨</div>
@@ -242,23 +946,38 @@
         <div class="section-head reveal">
           <span class="section-kicker">Вместе мы можем больше</span>
           <h2>Почему важна ваша помощь</h2>
-          <p>Ваша поддержка — это возможность направлять средства на нужды учреждения и создавать более комфортные условия для детей.</p>
+          <p>
+            Ваша поддержка — это возможность направлять средства на нужды
+            учреждения и создавать более комфортные условия для детей.
+          </p>
         </div>
+
         <div class="cards">
           <article class="info-card reveal">
             <div class="card-icon" aria-hidden="true">🤍</div>
             <h3>Каждый вклад важен</h3>
-            <p>Размер помощи не определяет её ценность. Важны участие, внимание и желание поддержать.</p>
+            <p>
+              Размер помощи не определяет её ценность. Важны участие,
+              внимание и желание поддержать.
+            </p>
           </article>
+
           <article class="info-card reveal">
             <div class="card-icon" aria-hidden="true">🌱</div>
             <h3>Поддержка учреждения</h3>
-            <p>Благотворительные средства направляются на укрепление материально-технической базы.</p>
+            <p>
+              Благотворительные средства направляются на укрепление
+              материально-технической базы.
+            </p>
           </article>
+
           <article class="info-card reveal">
             <div class="card-icon" aria-hidden="true">🫶</div>
             <h3>Доброта объединяет</h3>
-            <p>Когда люди помогают вместе, даже небольшие добрые дела складываются в большую поддержку.</p>
+            <p>
+              Когда люди помогают вместе, даже небольшие добрые дела
+              складываются в большую поддержку.
+            </p>
           </article>
         </div>
       </div>
@@ -269,44 +988,89 @@
         <div class="section-head reveal">
           <span class="section-kicker">Способы поддержки</span>
           <h2>Реквизиты для благотворительности</h2>
-          <p>Для перевода банковским платежом используйте реквизиты ниже. Назначение платежа можно скопировать отдельной кнопкой.</p>
+          <p>
+            Для перевода банковским платежом используйте реквизиты ниже.
+            Назначение платежа можно скопировать отдельной кнопкой.
+          </p>
         </div>
 
         <div class="donation-wrap">
           <section class="panel reveal" aria-labelledby="bank-title">
             <h3 id="bank-title">Банковские реквизиты</h3>
+
             <div class="details">
               <div class="detail-row">
                 <span class="detail-icon" aria-hidden="true">🏛️</span>
-                <div><span class="detail-label">Получатель</span><div class="detail-value">УЗ «Могилёвский специализированный Дом ребёнка для детей с органическим поражением центральной нервной системы с нарушением психики»</div></div>
+                <div>
+                  <span class="detail-label">Получатель</span>
+                  <div class="detail-value">
+                    УЗ «Могилёвский специализированный Дом ребёнка для детей
+                    с органическим поражением центральной нервной системы
+                    с нарушением психики»
+                  </div>
+                </div>
               </div>
+
               <div class="detail-row">
                 <span class="detail-icon" aria-hidden="true">📄</span>
-                <div><span class="detail-label">УНП</span><div class="detail-value mono">790321211</div></div>
+                <div>
+                  <span class="detail-label">УНП</span>
+                  <div class="detail-value mono">790321211</div>
+                </div>
               </div>
+
               <div class="detail-row">
                 <span class="detail-icon" aria-hidden="true">💳</span>
                 <div>
                   <span class="detail-label">Расчётный счёт (IBAN)</span>
-                  <div class="detail-value mono" id="ibanValue">BY60 AKBB 3642 0253 8259 9700 0000</div>
-                  <div class="copy-row"><button class="copy-button" type="button" data-copy="ibanValue" data-success="IBAN скопирован!">⧉ Скопировать IBAN</button></div>
+                  <div class="detail-value mono" id="ibanValue">
+                    BY60 AKBB 3642 0253 8259 9700 0000
+                  </div>
+                  <div class="copy-row">
+                    <button class="copy-button" type="button"
+                      data-copy="ibanValue" data-status="ibanStatus"
+                      data-success="IBAN скопирован!">
+                      ⧉ Скопировать IBAN
+                    </button>
+                  </div>
                   <p class="copy-status" id="ibanStatus" aria-live="polite"></p>
                 </div>
               </div>
+
               <div class="detail-row">
                 <span class="detail-icon" aria-hidden="true">🏦</span>
-                <div><span class="detail-label">Банк получателя</span><div class="detail-value">МОУ 700 ОАО АСБ Беларусбанк, г. Могилёв, ул. Первомайская, 71</div></div>
+                <div>
+                  <span class="detail-label">Банк получателя</span>
+                  <div class="detail-value">
+                    МОУ 700 ОАО АСБ Беларусбанк, г. Могилёв,
+                    ул. Первомайская, 71
+                  </div>
+                </div>
               </div>
+
               <div class="detail-row">
                 <span class="detail-icon" aria-hidden="true">🌐</span>
-                <div><span class="detail-label">BIC / SWIFT банка</span><div class="detail-value mono">AKBBBY2X</div></div>
+                <div>
+                  <span class="detail-label">BIC / SWIFT банка</span>
+                  <div class="detail-value mono">AKBBBY2X</div>
+                </div>
               </div>
+
               <div class="detail-row">
                 <span class="detail-icon" aria-hidden="true">🫶</span>
                 <div>
                   <span class="detail-label">Назначение платежа</span>
-                  <div class="detail-value" id="paymentPurpose">Благотворительная спонсорская помощь на укрепление материально-технической базы учреждения (МТБ)</div>
-                  <div class="copy-row"><button class="copy-button" type="button" data-copy="paymentPurpose" data-success="Назначение платежа скопировано!">⧉ Скопировать назначение</button></div>
+                  <div class="detail-value" id="paymentPurpose">
+                    Благотворительная спонсорская помощь на укрепление
+                    материально-технической базы учреждения (МТБ)
+                  </div>
+                  <div class="copy-row">
+                    <button class="copy-button" type="button"
+                      data-copy="paymentPurpose" data-status="paymentStatus"
+                      data-success="Назначение платежа скопировано!">
+                      ⧉ Скопировать назначение
+                    </button>
+                  </div>
                   <p class="copy-status" id="paymentStatus" aria-live="polite"></p>
                 </div>
               </div>
@@ -315,7 +1079,12 @@
 
           <aside class="panel erip-panel reveal" aria-labelledby="erip-title">
             <h3 id="erip-title">Оплата через систему ЕРИП</h3>
-            <p style="color:var(--muted);font-size:14px;margin-top:-7px;">В приложении банка откройте систему «Расчёт» и последовательно выберите пункты:</p>
+
+            <p class="erip-intro">
+              В приложении банка откройте систему «Расчёт» и последовательно
+              выберите пункты:
+            </p>
+
             <ol class="steps">
               <li><span><strong>Система «Расчёт» (ЕРИП)</strong></span></li>
               <li><span>Соцобслуживание, здравоохранение</span></li>
@@ -325,7 +1094,12 @@
               <li><span>Специализированный Дом ребёнка</span></li>
               <li><span><strong>Взносы на укрепление МТБ</strong></span></li>
             </ol>
-            <div class="note">Перед подтверждением платежа проверьте название получателя и выбранный пункт в приложении банка. Доступность разделов может зависеть от банка.</div>
+
+            <div class="note">
+              Перед подтверждением платежа проверьте название получателя
+              и выбранный пункт в приложении банка. Доступность разделов
+              может зависеть от банка.
+            </div>
           </aside>
         </div>
       </div>
@@ -336,7 +1110,10 @@
         <div class="thankyou reveal">
           <div class="heart" aria-hidden="true">💛</div>
           <h2>Спасибо за ваше доброе сердце</h2>
-          <p>Мы искренне благодарны за любую помощь, внимание и поддержку. Пусть добро возвращается к вам.</p>
+          <p>
+            Мы искренне благодарны за любую помощь, внимание и поддержку.
+            Пусть добро возвращается к вам.
+          </p>
         </div>
       </div>
     </section>
@@ -344,76 +1121,111 @@
 
   <footer>
     <div class="container footer-inner">
-      <span>© <span id="currentYear"></span> Могилёвский специализированный Дом ребёнка</span>
+      <span>
+        © <span id="currentYear"></span>
+        Могилёвский специализированный Дом ребёнка
+      </span>
       <a class="back-top" href="#home">Наверх ↑</a>
     </div>
   </footer>
 
-  <button class="to-top" id="toTop" type="button" aria-label="Вернуться наверх">↑</button>
+  <button class="to-top" id="toTop" type="button"
+    aria-label="Вернуться наверх">↑</button>
 
   <script>
     document.body.classList.remove("no-js");
 
-    // Mobile navigation
+    // Мобильное меню
     const menuToggle = document.querySelector(".menu-toggle");
     const nav = document.querySelector("#site-nav");
+
     if (menuToggle && nav) {
       menuToggle.addEventListener("click", function () {
         const isOpen = nav.classList.toggle("open");
         menuToggle.setAttribute("aria-expanded", String(isOpen));
-        menuToggle.innerHTML = isOpen ? "✕ Закрыть" : "☰ Меню";
+        menuToggle.textContent = isOpen ? "✕ Закрыть" : "☰ Меню";
       });
+
       nav.querySelectorAll("a").forEach(function (link) {
         link.addEventListener("click", function () {
           nav.classList.remove("open");
           menuToggle.setAttribute("aria-expanded", "false");
-          menuToggle.innerHTML = "☰ Меню";
+          menuToggle.textContent = "☰ Меню";
         });
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!nav.contains(event.target) &&
+            !menuToggle.contains(event.target)) {
+          nav.classList.remove("open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.textContent = "☰ Меню";
+        }
       });
     }
 
-    // Copy buttons with clipboard fallback and clear feedback
+    // Копирование реквизитов с резервным способом для старых браузеров
     async function copyText(text) {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(text);
         return;
       }
+
       const textarea = document.createElement("textarea");
       textarea.value = text;
       textarea.setAttribute("readonly", "");
       textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
+      textarea.style.left = "-9999px";
       document.body.appendChild(textarea);
       textarea.select();
-      const ok = document.execCommand("copy");
+
+      const success = document.execCommand("copy");
       textarea.remove();
-      if (!ok) throw new Error("Copy failed");
+
+      if (!success) throw new Error("Copy failed");
     }
 
     document.querySelectorAll("[data-copy]").forEach(function (button) {
       button.addEventListener("click", async function () {
         const target = document.getElementById(button.dataset.copy);
-        const statusId = button.dataset.copy === "ibanValue" ? "ibanStatus" : "paymentStatus";
-        const status = document.getElementById(statusId);
+        const status = document.getElementById(button.dataset.status);
+
         if (!target || !status) return;
+
         const original = button.textContent;
+        button.disabled = true;
+
         try {
           await copyText(target.textContent.trim());
           status.textContent = button.dataset.success || "Скопировано!";
           button.textContent = "✓ Скопировано";
+
           window.setTimeout(function () {
             button.textContent = original;
             status.textContent = "";
           }, 2600);
         } catch (error) {
-          status.textContent = "Не удалось скопировать автоматически. Выделите текст и скопируйте вручную.";
+          status.textContent =
+            "Не удалось скопировать автоматически. Выделите текст и скопируйте вручную.";
+        } finally {
+          button.disabled = false;
         }
       });
     });
 
-    // Reveal effects; disabled automatically for reduced-motion preferences
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Анимации появления при прокрутке
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
     const revealItems = document.querySelectorAll(".reveal");
+
+    revealItems.forEach(function (item, index) {
+      if (item.classList.contains("info-card")) {
+        item.style.setProperty("--delay", (index % 3) * 100 + "ms");
+      }
+    });
+
     if (!reduceMotion && "IntersectionObserver" in window) {
       const observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -423,30 +1235,73 @@
           }
         });
       }, { threshold: 0.12 });
-      revealItems.forEach(function (item) { observer.observe(item); });
+
+      revealItems.forEach(function (item) {
+        observer.observe(item);
+      });
     } else {
-      revealItems.forEach(function (item) { item.classList.add("is-visible"); });
+      revealItems.forEach(function (item) {
+        item.classList.add("is-visible");
+      });
     }
 
-    // Year and back-to-top control
-    document.getElementById("currentYear").textContent = new Date().getFullYear();
-    const toTop = document.getElementById("toTop");
-    function updateToTop() {
+    // Индикатор прокрутки страницы
+    const progress = document.getElementById("scrollProgress");
+    let scrollScheduled = false;
+
+    function updateScrollUI() {
+      const maxScroll =
+        document.documentElement.scrollHeight - window.innerHeight;
+
+      const percent = maxScroll > 0
+        ? (window.scrollY / maxScroll) * 100
+        : 0;
+
+      progress.style.width = Math.min(100, percent) + "%";
+
+      const toTop = document.getElementById("toTop");
       toTop.classList.toggle("visible", window.scrollY > 450);
-    }
-    window.addEventListener("scroll", updateToTop, { passive: true });
-    toTop.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
-    });
-    updateToTop();
 
-    // If the page is reloaded, start at the top. Normal in-page navigation remains functional.
+      scrollScheduled = false;
+    }
+
+    window.addEventListener("scroll", function () {
+      if (!scrollScheduled) {
+        scrollScheduled = true;
+        window.requestAnimationFrame(updateScrollUI);
+      }
+    }, { passive: true });
+
+    window.addEventListener("resize", updateScrollUI);
+
+    // Кнопка возврата наверх
+    document.getElementById("toTop").addEventListener("click", function () {
+      window.scrollTo({
+        top: 0,
+        behavior: reduceMotion ? "auto" : "smooth"
+      });
+    });
+
+    // Автоматический год в подвале
+    document.getElementById("currentYear").textContent =
+      new Date().getFullYear();
+
+    // При перезагрузке открываем страницу сверху
     window.addEventListener("load", function () {
-      const navEntry = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
-      if (navEntry && navEntry.type === "reload") {
-        if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+      const navigationEntry =
+        performance.getEntriesByType("navigation")[0];
+
+      if (navigationEntry && navigationEntry.type === "reload") {
+        if (location.hash) {
+          history.replaceState(
+            null, "", location.pathname + location.search
+          );
+        }
+
         window.scrollTo(0, 0);
       }
+
+      updateScrollUI();
     }, { once: true });
   </script>
 </body>
